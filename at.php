@@ -1,0 +1,36 @@
+<?php
+
+session_start();
+header('location:submitted.php');
+$con = mysqli_connect('localhost','root','');
+
+mysqli_select_db($con,'userregistration');
+$pname = $_POST['pname'];
+$email = $_POST['email'];
+$designation = $_POST['designation'];
+$gender = $_POST['gender'];
+$city = $_POST['city'];
+$nationality = $_POST['nationality'];
+$qname = $_POST['qname'];
+$birthdate = $_POST['birthdate'];
+$mobile = $_POST['mobile'];
+$district = $_POST['district'];
+$state = $_POST['state'];
+
+
+$s = "select * from teacher where email = '$email'";
+
+$result = mysqli_query($con,$s);
+
+$num = mysqli_num_rows($result);
+
+if($num==1){
+    echo "Username already taken";
+}
+else{
+    $reg = "insert into teacher(pname,email,designation,gender,city,nationality,qname,birthdate,mobile,district,state) values('$pname','$email','$designation','$gender','$city','$nationality','$qname','$birthdate','$mobile','$district','$state')";
+    mysqli_query($con,$reg);
+    echo "Data Submitted Successfully";
+}
+?>
+?>
